@@ -43,8 +43,8 @@ const MessageCard = ({ name, message, email, notify, getMessages }) => {
             }}
             className="text-[12px] bg-amber-700 h-6 w-15 rounded-xl my-auto flex justify-center items-center min-[640px]:text-lg min-[640px]:h-10 min-[640px]:w-24 hover:scale-110 transition-all"
           >
-            {isDeletingMessage && "Delete"}
-            {!isDeletingMessage && <div role="status" className="">
+            {!isDeletingMessage && "Delete"}
+            {isDeletingMessage && <div role="status" className="">
           <svg
             aria-hidden="true"
             className="w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-black"
