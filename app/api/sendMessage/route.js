@@ -7,7 +7,7 @@ export async function POST(request) {
   try {
     let info = await request.json();
 
-    await mongoose.connect(`${process.env.MONGODB_URI}`);
+    await mongoose.connect(`${process.env.MONGODB_URI}profolio-messages`);
 
     function cleanSpaces(str) {
       return str.trim().replace(/\s+/g, " ");
