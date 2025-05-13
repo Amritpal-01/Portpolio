@@ -53,7 +53,7 @@ const HpNav = ({ About, Home, Projects, Contact }) => {
       });
       observer.disconnect();
     };
-  }, []);
+  }, [Home,About,Contact,Projects]);
 
   let handleClick = (e) => {
     let Items = menu.current.querySelectorAll("li");

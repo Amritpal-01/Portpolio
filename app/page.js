@@ -4,6 +4,7 @@ import HpNav from "@/components/HpNav";
 import { useRef, useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
+import Image from "next/image";
 
 export default function Home() {
   let Home = useRef();
@@ -12,32 +13,32 @@ export default function Home() {
   let Contact = useRef();
   let notificationBar = useRef();
   let skills = useRef({});
-  const [Notification, setNotification] = useState("")
+  const [Notification, setNotification] = useState("");
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors,isSubmitting },
+    formState: { errors, isSubmitting },
   } = useForm();
 
   const onSubmit = async (data) => {
-      try{
-        let res = await fetch("./api/sendMessage", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
+    try {
+      let res = await fetch("./api/sendMessage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-    let status = await res.json();
+      let status = await res.json();
 
-    if(status.status == 200){
-      notify("Message Sent Successfully");
-    }else{
-      notify("An error occured!!")
-    }
-    }catch{
-      notify("its a server error, sorry!!")
+      if (status.status == 200) {
+        notify("Message Sent Successfully");
+      } else {
+        notify("An error occured!!");
+      }
+    } catch {
+      notify("its a server error, sorry!!");
     }
 
     reset();
@@ -45,11 +46,11 @@ export default function Home() {
 
   let notify = (message) => {
     setNotification(message);
-    notificationBar.current.classList.add('showNotification');
+    notificationBar.current.classList.add("showNotification");
     setTimeout(() => {
-      notificationBar.current.classList.remove('showNotification');
-    },5000)
-  }
+      notificationBar.current.classList.remove("showNotification");
+    }, 5000);
+  };
 
   const [scrollProgress, setScrollProgress] = useState(0);
   const updateScrollProgress = () => {
@@ -92,33 +93,53 @@ export default function Home() {
   return (
     <div className="relative">
       <div
-  ref={notificationBar}
-  className="fixed min-[640px]:top-28 -right-96 max-[640px]:bottom-12 transition-all max-w-xs w-full bg-white border border-blue-400 shadow-lg rounded-xl flex items-center p-4 gap-4 z-50"
->
-  {/* Icon */}
-  <div className="text-blue-500 text-xl">
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M12 20c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z" />
-    </svg>
-  </div>
+        ref={notificationBar}
+        className="fixed min-[640px]:top-28 -right-96 max-[640px]:bottom-12 transition-all max-w-xs w-full bg-white border border-blue-400 shadow-lg rounded-xl flex items-center p-4 gap-4 z-50"
+      >
+        {/* Icon */}
+        <div className="text-blue-500 text-xl">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 16h-1v-4h-1m1-4h.01M12 20c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z"
+            />
+          </svg>
+        </div>
 
-  {/* Message */}
-  <div className="flex-1 text-sm text-gray-800">
-    {Notification}
-  </div>
+        {/* Message */}
+        <div className="flex-1 text-sm text-gray-800">{Notification}</div>
 
-  {/* Close Button */}
-  <button
-    onClick={() => {
-      notificationBar.current.classList.remove('showNotification');
-    }}
-    className="text-gray-400 hover:text-gray-600 transition"
-  >
-    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  </button>
-</div>
+        {/* Close Button */}
+        <button
+          onClick={() => {
+            notificationBar.current.classList.remove("showNotification");
+          }}
+          className="text-gray-400 hover:text-gray-600 transition"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
       <HpNav Home={Home} About={About} Projects={Projects} Contact={Contact} />
       <div
         ref={Home}
@@ -131,7 +152,7 @@ export default function Home() {
             <div className="-z-10 skill opacity-0 translate-y-4 transition-all duration-700 delay-500 max-[1140px]:hidden absolute w-96 h-72 rounded-tr-full rounded-bl-full glass-leaf-l right-0"></div>
           </div>
           <h1 className="text-7xl skill opacity-0 translate-y-4 transition-all duration-700 max-[640px]:text-5xl max-[640px]:mt-8 max-[390px]:text-[44px] comic-relief-bold">
-            I'm <span className="text-[#FD853A]">Amrit</span>,
+            I&apos;m <span className="text-[#FD853A]">Amrit</span>,
           </h1>
           <h1 className="text-7xl skill opacity-0 translate-y-4 transition-all duration-700 delay-300 max-[640px]:text-5xl max-[390px]:text-[44px] max-[640px]:mb-8 comic-relief-bold">
             <span className="text-blue-400">Web</span> Developer
@@ -282,10 +303,17 @@ export default function Home() {
             >
               <div className="w-full flex justify-around items-center cursor-pointer max-[640px]:flex-col flex-row py-3 text-white font-semibold">
                 <div className="h-full flex justify-center items-center">
-                  <img className="h-18 max-[640px]:h-6 mx-2" src="hps1.png" />
+                  <div className="relative w-18 h-18 max-[640px]:w-16 max-[640px]:h-6">
+                    <Image
+                      src="/hps1.png"
+                      alt="Picture of the javascript"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
                 <span className="text-xl max-[640px]:text-sm mx-2">
-                  Javascript
+                  JavaScript
                 </span>
                 <button
                   ref={(el) => {
@@ -330,10 +358,14 @@ export default function Home() {
             >
               <div className="w-full flex justify-center gap-10 max-[640px]:gap-2 items-center max-[640px]:flex-col cursor-pointer flex-row py-3 text-white font-semibold">
                 <div className="h-full flex justify-center items-center">
-                  <img
-                    className="h-20 -mt-3 max-[640px]:h-7 max-[640px]:-mt-[2px]"
-                    src="hps2.png"
-                  />
+                  <div className="relative h-20 w-20 -mt-3 max-[640px]:w-7 max-[640px]:h-7 max-[640px]:-mt-[2px]">
+                    <Image
+                      src="/hps2.png"
+                      alt="Picture of the css"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
                 <span className="text-xl max-[640px]:text-sm">CSS</span>
                 <button
@@ -379,10 +411,14 @@ export default function Home() {
             >
               <div className="w-full flex justify-around items-center cursor-pointer flex-row max-[640px]:flex-col py-3 text-white font-semibold">
                 <div className="h-full flex justify-center items-center">
-                  <img
-                    className="h-10 max-[640px]:h-5 max-[640px]:pb-1"
-                    src="hps3.png"
-                  />
+                  <div className="relative h-16 w-16 -mt-3 max-[640px]:w-7 max-[640px]:h-7 max-[640px]:-mt-[2px]">
+                    <Image
+                      src="/hps3.png"
+                      alt="Picture of the css"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
                 <span className="text-xl max-[640px]:text-sm">Tailwind</span>
                 <button
@@ -428,8 +464,16 @@ export default function Home() {
             >
               <div className="w-full flex justify-center items-center cursor-pointer flex-row py-3 text-white font-semibold">
                 <div className="h-full flex justify-center items-center">
-                  <img className="w-44 max-[640px]:w-24" src="hps7.png" />
+                  <div className="relative w-44 max-[640px]:w-24 h-12 ">
+                    <Image
+                      src="/hps7.png"
+                      alt="Picture of the css"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
+                
                 <button
                   ref={(el) => {
                     skills.current["mongoDB"] = el;
@@ -471,7 +515,14 @@ export default function Home() {
             >
               <div className="w-full flex justify-around items-center cursor-pointer flex-row max-[640px]:flex-col py-3 text-white font-semibold">
                 <div className="h-full flex justify-center items-center">
-                  <img className="w-14 max-[640px]:w-7 invert" src="hps8.png" />
+                  <div className="relative w-14 max-[640px]:w-7 max-[640px]:h-10 invert h-14 ">
+                    <Image
+                      src="/hps8.png"
+                      alt="Picture of the css"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
                 <span className="text-xl max-[640px]:text-sm">Express.js</span>
                 <button
@@ -517,7 +568,14 @@ export default function Home() {
             >
               <div className="w-full flex justify-center gap-8 max-[640px]:gap-2 items-center cursor-pointer flex-row max-[640px]:flex-col py-3 text-white font-semibold">
                 <div className="h-full flex justify-center items-center">
-                  <img className="h-14 max-[640px]:h-7" src="hps4.png" />
+                  <div className="relative h-14 max-[640px]:h-7 w-14 ">
+                    <Image
+                      src="/hps4.png"
+                      alt="Picture of the css"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
                 <span className="text-xl max-[640px]:text-sm">React.js</span>
                 <button
@@ -563,7 +621,14 @@ export default function Home() {
             >
               <div className="w-full flex justify-center items-center cursor-pointer flex-row text-white font-semibold">
                 <div className="h-full flex justify-center items-center">
-                  <img className="h-32 max-[640px]:h-20" src="hps6.png" />
+                  <div className="relative w-32 max-[640px]:w-20 max-[640px]:h-20 h-40 ">
+                    <Image
+                      src="/hps6.png"
+                      alt="Picture of the css"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
                 <button
                   ref={(el) => {
@@ -606,7 +671,14 @@ export default function Home() {
             >
               <div className="w-full flex justify-center items-center cursor-pointer flex-row py-3 text-white font-semibold">
                 <div className="h-full flex justify-center items-center">
-                  <img className="h-10 max-[640px]:h-5 invert" src="hps5.png" />
+                  <div className="w-[80%] max-[640px]:h-5 invert">
+                    <Image
+                      src="/hps5.png"
+                      width={200}
+                      height={200}
+                      alt="Picture of the author"
+                    />
+                  </div>
                 </div>
                 <button
                   ref={(el) => {
@@ -653,11 +725,11 @@ export default function Home() {
         <section className="glass-card p-8">
           <h2 className="text-3xl font-bold mb-6 gradient-text">About Me</h2>
           <p className="text-lg leading-relaxed mb-8">
-            I'm a passionate Computer Application student with a keen interest
+            I&apos;m a passionate Computer Application student with a keen interest
             in web development. Currently pursuing my degree while building
             real-world projects. I enjoy building responsive, user-friendly
             websites and web apps that solve real-world problems. Over the past
-            few months, I've completed several personal projects, including a
+            few months, I&apos;ve completed several personal projects, including a
             messaging app and a social-freelance hybrid platform.
           </p>
 
@@ -671,10 +743,6 @@ export default function Home() {
               <h3 className="text-4xl font-bold text-purple-400">5+</h3>
               <p className="text-purple-200">Projects Built</p>
             </div>
-            {/* <div className="glass-card p-6 text-center stat-number opacity-0 translate-y-4 transition-all duration-700 delay-400">
-              <h3 className="text-4xl font-bold text-purple-400">5+</h3>
-              <p className="text-purple-200">Hackathons</p>
-            </div> */}
           </div>
 
           {/* Timeline */}
@@ -785,7 +853,7 @@ export default function Home() {
                 type="submit"
                 className="w-full px-6 py-3 bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-lg font-medium hover:opacity-90 transform hover:scale-105 transition-all duration-300"
               >
-                {isSubmitting?"loading..":"Send Message"}
+                {isSubmitting ? "loading.." : "Send Message"}
               </button>
             </form>
 
