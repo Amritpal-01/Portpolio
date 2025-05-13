@@ -6,7 +6,10 @@ import Contact from "@/app/models/Contact";
 
 async function connectDB() {
   if (mongoose.connection.readyState === 0) {
-    await mongoose.connect(`${process.env.MONGODB_URI}/test`);
+    await mongoose.connect(`${process.env.MONGODB_URI}/test`, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
   }
 }
 
@@ -16,7 +19,7 @@ export async function POST(request) {
 
     const contacts = await Contact.find();
 
-    await mongoose.disconnect();
+    // await mongoose.disconnect();
 
     return NextResponse.json({ status: 200, data: contacts });
     
