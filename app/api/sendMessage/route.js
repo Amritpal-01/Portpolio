@@ -3,9 +3,18 @@ import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 import Contact from "@/app/models/Contact";
 
+async function connectDB() {
+  if (mongoose.connection.readyState === 0) {
+    await mongoose.connect(process.env.MONGODB_URI);
+  }
+}
+
 export async function POST(request) {
   try {
     let info = await request.json();
+
+    
+    await connectDB();
 
     await mongoose.connect(`${process.env.MONGODB_URI}/profolio-messages`);
 

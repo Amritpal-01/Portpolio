@@ -29,8 +29,6 @@ const Page = () => {
 
     let cont = await res.json();
 
-    console.log(cont);
-
     if (cont.data) {
       setContacts(cont.data);
     } else {
@@ -67,6 +65,32 @@ const Page = () => {
             />
           </svg>
         </div>
+
+        {/* Message */}
+        <div className="flex-1 text-sm text-gray-800">{Notification}</div>
+
+        {/* Close Button */}
+        <button
+          onClick={() => {
+            notificationBar.current.classList.remove("showNotification");
+          }}
+          className="text-gray-400 hover:text-gray-600 transition"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
       </div>
       {isLoadingMessages && (
         <div role="status" className=" fixed left-[48%] top-[46%]">
@@ -108,12 +132,15 @@ const Page = () => {
       <h1 className="text-4xl font-bold gradient-text text-center py-5">
         InBox
       </h1>
+      
       {contacts.map((contact, i) => {
         return (
           <MessageCard
             name={contact.name}
             message={contact.message}
             email={contact.email}
+            getMessages ={getMessages}
+            notify={notify}
             key={i}
           />
         );
