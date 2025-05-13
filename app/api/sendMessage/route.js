@@ -7,7 +7,7 @@ export async function POST(request) {
   try {
     let info = await request.json();
 
-    await mongoose.connect(`${process.env.MONGODB_URI}profolio-messages`);
+    await mongoose.connect(`${process.env.MONGODB_URI}/profolio-messages`);
 
     function cleanSpaces(str) {
       return str.trim().replace(/\s+/g, " ");
@@ -19,11 +19,10 @@ export async function POST(request) {
       message: cleanSpaces(info.message),
     };
 
-    console.log(polishedInfo)
 
     let newMessage = new Contact({
       name: polishedInfo.name,
-      email: (polishedInfo.email == "")?"not provided":polishedInfo.email == "",
+      email: (polishedInfo.email == "")?"not provided":polishedInfo.email,
       message: polishedInfo.message,
       createdAt: Date.now(),
     });
