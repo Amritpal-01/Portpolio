@@ -5,7 +5,7 @@ import Contact from "@/app/models/Contact";
 
 async function connectDB() {
   if (mongoose.connection.readyState === 0) {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(`${process.env.MONGODB_URI}/profolio-messages`);
   }
 }
 
@@ -13,10 +13,9 @@ export async function POST(request) {
   try {
     let info = await request.json();
 
+    console.log(info)
     
     await connectDB();
-
-    await mongoose.connect(`${process.env.MONGODB_URI}/profolio-messages`);
 
     function cleanSpaces(str) {
       return str.trim().replace(/\s+/g, " ");
