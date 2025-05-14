@@ -5,8 +5,10 @@
 import MessageCard from "@/components/MessageCard";
 import React, { useEffect, useRef, useState } from "react";
 import { redirect } from "next/navigation";
+import { useAppContext } from "@/context/AppProvider";
 
 const Page = () => {
+  const { session } = useAppContext();
   const [isLoadingMessages, setIsLoadingMessages] = useState(true);
   const [contacts, setContacts] = useState([]);
   const [Notification, setNotification] = useState("");
@@ -39,7 +41,13 @@ const Page = () => {
   };
 
   useEffect(() => {
-    getMessages();
+    const storedUser = JSON.parse(
+      localStorage.getItem("amritPortfolioSession")
+    );
+    if (storedUser) {
+      getMessages();
+    }
+    redirect("/admin");
   }, []);
 
   return (
@@ -93,13 +101,16 @@ const Page = () => {
         </button>
       </div>
       {isLoadingMessages && (
-        <div role="status" className=" fixed  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div
+          role="status"
+          className=" fixed  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        >
           <svg
             aria-hidden="true"
             className="w-12 h-12 py-2 text-gray-200 animate-spin dark:text-gray-600 fill-black"
             viewBox="0 0 100 101"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg" 
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
@@ -132,14 +143,14 @@ const Page = () => {
       <h1 className="text-4xl font-bold gradient-text text-center py-5">
         InBox
       </h1>
-      
+
       {contacts.map((contact, i) => {
         return (
           <MessageCard
             name={contact.name}
             message={contact.message}
             email={contact.email}
-            getMessages ={getMessages}
+            getMessages={getMessages}
             notify={notify}
             key={i}
           />

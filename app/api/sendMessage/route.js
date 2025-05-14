@@ -15,8 +15,6 @@ async function connectDB() {
 export async function POST(request) {
   try {
     let info = await request.json();
-
-    console.log(info)
     
     await connectDB();
 
@@ -26,7 +24,7 @@ export async function POST(request) {
 
     let polishedInfo = {
       name: cleanSpaces(info.name),
-      email: cleanSpaces(info.email),
+      email: info.email?cleanSpaces(info.email):"",
       message: cleanSpaces(info.message),
     };
 

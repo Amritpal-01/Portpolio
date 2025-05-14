@@ -16,6 +16,7 @@ const MessageCard = ({ name, message, email, notify, getMessages }) => {
       if(resp.status = 200){
         notify("message deleted!")
         getMessages();
+        setIsDeletingMessage(false)
       }else{
         notify("message could not be deleted!")
       }

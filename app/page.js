@@ -1079,6 +1079,9 @@ export default function Home() {
                     </svg>
                   </a>
                 ))}
+                <button onClick={() => {
+                  redirect("/contacts")
+                }}>Open Admin&apos;s Portal</button>
               </div>
             </div>
           </div>
