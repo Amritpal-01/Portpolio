@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 import { useAppContext } from "@/context/AppProvider";
 
 const Page = () => {
-  const { session } = useAppContext();
+  const { session , isLoadingSession } = useAppContext();
   const [isLoadingMessages, setIsLoadingMessages] = useState(true);
   const [contacts, setContacts] = useState([]);
   const [Notification, setNotification] = useState("");
@@ -41,14 +41,14 @@ const Page = () => {
   };
 
   useEffect(() => {
-    const storedUser = JSON.parse(
-      localStorage.getItem("amritPortfolioSession")
-    );
-    if (storedUser) {
-      getMessages();
+    if(!isLoadingSession){
+      if(session){
+        getMessages();
+      }else{
+        redirect("/admin")
+      }
     }
-    redirect("/admin");
-  }, []);
+  }, [isLoadingSession]);
 
   return (
     <div className="min-h-screen w-full relative">

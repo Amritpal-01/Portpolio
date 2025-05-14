@@ -10,7 +10,7 @@ import { useAppContext } from "@/context/AppProvider";
 const Page = () => {
   const [Notification, setNotification] = useState("");
   let notificationBar = useRef();
-  const { session, setSession } = useAppContext();
+  const { session, setSession,isLoadingSession,setIsLoadingSession } = useAppContext();
   const {
     register,
     handleSubmit,
@@ -36,8 +36,11 @@ const Page = () => {
     let info = await res.json();
 
     if (info.status == 200) {
-        localStorage.setItem("amritPortfolioSession", JSON.stringify({session:true}));
+        try{
+            localStorage.setItem("amritPortfolioSession", JSON.stringify({session:true}));
+        }catch{}
         setSession(true);
+        setIsLoadingSession(false)
         redirect("/contacts")
     }
     notify(info.message)

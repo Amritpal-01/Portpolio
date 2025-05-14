@@ -9,19 +9,29 @@ const AppContext = createContext();
 
 // Context Provider Component
 export const AppProvider = ({ children }) => {
-    const [session, setSession] = useState(false)
-    useEffect(() => {
-      const storedUser = JSON.parse(localStorage.getItem("amritPortfolioSession"));
-      if(storedUser){
-        setSession(true)
+  const [session, setSession] = useState(false);
+  const [isLoadingSession, setIsLoadingSession] = useState(true);
+  useEffect(() => {
+    try {
+      const storedUser = JSON.parse(
+        localStorage.getItem("amritPortfolioSession")
+      );
+      if (storedUser) {
+        setSession(true);
       }
-    },[])
+      setIsLoadingSession(false);
+    } catch {
+      setIsLoadingSession(false);
+    }
+  }, []);
 
   return (
     <AppContext.Provider
       value={{
         session,
-        setSession
+        setSession,
+        isLoadingSession,
+        setIsLoadingSession,
       }}
     >
       {children}
