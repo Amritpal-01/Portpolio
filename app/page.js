@@ -5,8 +5,10 @@ import { useRef, useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
+import { useAppContext } from "@/context/AppProvider";
 
 export default function Home() {
+  const { session , isLoadingSession } = useAppContext();
   let Home = useRef();
   let About = useRef();
   let Projects = useRef();
@@ -1079,9 +1081,9 @@ export default function Home() {
                     </svg>
                   </a>
                 ))}
-                <button onClick={() => {
+                {(!isLoadingSession && session ) && <button onClick={() => {
                   redirect("/contacts")
-                }}>Open Admin&apos;s Portal</button>
+                }}>Open Admin&apos;s Portal</button>}
               </div>
             </div>
           </div>
