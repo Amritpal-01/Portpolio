@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import { useAppContext } from "@/context/AppProvider";
+import Link from "next/link";
 
 export default function Home() {
   const { session , isLoadingSession } = useAppContext();
@@ -250,10 +251,8 @@ export default function Home() {
               {" "}
               Check out my blogging webpage
             </h2>
-            <button
-              onClick={() => {
-                redirect("/blogs");
-              }}
+            <Link
+              href={"https://blogspace-amrs.vercel.app/"}
               className="comic-relief-bold hover:scale-110 transition-all bg-[#FD853A] duration-300 h-12 text-white rounded-full flex flex-row justify-center items-center"
             >
               <h3 className="px-2">/Blogs</h3>
@@ -278,7 +277,7 @@ export default function Home() {
                   />
                 </svg>
               </div>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -1017,10 +1016,8 @@ export default function Home() {
               <p className="text-purple-200">
                 Visit my /Blogs to know whats going on.
               </p>
-              <button
-                onClick={() => {
-                  redirect("/blogs");
-                }}
+              <Link
+              href={"https://blogspace-amrs.vercel.app/"}
                 className="comic-relief-bold bg-purple-900 hover:scale-105 transition-all h-12 text-white rounded-full flex flex-row justify-center items-center"
               >
                 <h3 className="px-2">/Blogs</h3>
@@ -1045,7 +1042,7 @@ export default function Home() {
                     />
                   </svg>
                 </div>
-              </button>
+              </Link>
             </div>
 
             {/* Social Links */}
